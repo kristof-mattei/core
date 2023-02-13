@@ -33,7 +33,7 @@ env:
   MYPY_CACHE_VERSION: 4
   HA_SHORT_VERSION: 2023.3
   DEFAULT_PYTHON: "3.10"
-  ALL_PYTHON_VERSIONS: "['3.10']"
+  ALL_PYTHON_VERSIONS: "['3.10', '3.11']"
   # 10.6 is the current long-term-support
   # - 10.6.10 is the version currently shipped with the Add-on (as of 31 Jan 2023)
   # 10.10 is the latest short-term-support
