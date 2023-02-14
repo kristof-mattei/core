@@ -353,9 +353,6 @@ aqualogic==2.6
 # homeassistant.components.aranet
 aranet4==2.1.3
 
-# homeassistant.components.arcam_fmj
-# arcam-fmj==1.2.0
-
 # homeassistant.components.arris_tg2492lg
 arris-tg2492lg==1.2.1
 
@@ -1518,9 +1515,6 @@ pybalboa==1.0.0
 # homeassistant.components.bbox
 pybbox==0.0.5-alpha
 
-# homeassistant.components.blackbird
-pyblackbird==0.5
-
 # homeassistant.components.bluetooth_tracker
 # pybluez==0.22
 
@@ -1569,9 +1563,6 @@ pydaikin==2.9.0
 # homeassistant.components.danfoss_air
 pydanfossair==0.1.0
 
-# homeassistant.components.deconz
-pydeconz==106
-
 # homeassistant.components.delijn
 pydelijn==1.0.0
 
@@ -1619,9 +1610,6 @@ pyezviz==0.2.0.9
 
 # homeassistant.components.fibaro
 pyfibaro==0.6.6
-
-# homeassistant.components.fido
-pyfido==2.1.1
 
 # homeassistant.components.fireservicerota
 pyfireservicerota==0.0.43
@@ -2074,9 +2062,6 @@ python-kasa==0.5.0
 # homeassistant.components.lirc
 # python-lirc==1.2.3
 
-# homeassistant.components.matter
-python-matter-server==2.0.2
-
 # homeassistant.components.xiaomi_miio
 python-miio==0.5.12
 
@@ -2238,9 +2223,6 @@ restrictedpython==6.0
 
 # homeassistant.components.idteck_prox
 rfk101py==0.0.1
-
-# homeassistant.components.rflink
-rflink==0.0.63
 
 # homeassistant.components.ring
 ring_doorbell==0.7.2
