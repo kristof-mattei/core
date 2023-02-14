@@ -42,10 +42,41 @@ async def test_basic_usage(hass, tmpdir):
         return last_filename
 
     with patch("cProfile.Profile"), patch.object(hass.config, "path", _mock_path):
-        await hass.services.async_call(DOMAIN, SERVICE_START, {CONF_SECONDS: 0.000001})
-        await hass.async_block_till_done()
+        await hass.services.async_call(
+            DOMAIN, SERVICE_START, {CONF_SECONDS: 0.000001}, blocking=True
+        )
 
     assert os.path.exists(last_filename)
+
+    assert await hass.config_entries.async_unload(entry.entry_id)
+    await hass.async_block_till_done()
+
+
+async def test_memory_usage(hass, tmpdir):
+    """Test we can setup and the service is registered."""
+    test_dir = tmpdir.mkdir("profiles")
+
+    entry = MockConfigEntry(domain=DOMAIN)
+    entry.add_to_hass(hass)
+
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+
+    assert hass.services.has_service(DOMAIN, SERVICE_MEMORY)
+
+    last_filename = None
+
+    def _mock_path(filename):
+        nonlocal last_filename
+        last_filename = f"{test_dir}/{filename}"
+        return last_filename
+
+    with patch("guppy.hpy") as mock_hpy, patch.object(hass.config, "path", _mock_path):
+        await hass.services.async_call(
+            DOMAIN, SERVICE_MEMORY, {CONF_SECONDS: 0.000001}, blocking=True
+        )
+
+        mock_hpy.assert_called_once()
 
     assert await hass.config_entries.async_unload(entry.entry_id)
     await hass.async_block_till_done()
@@ -67,9 +98,8 @@ async def test_object_growth_logging(
 
     with patch("objgraph.growth"):
         await hass.services.async_call(
-            DOMAIN, SERVICE_START_LOG_OBJECTS, {CONF_SCAN_INTERVAL: 10}
+            DOMAIN, SERVICE_START_LOG_OBJECTS, {CONF_SCAN_INTERVAL: 10}, blocking=True
         )
-        await hass.async_block_till_done()
 
     assert "Growth" in caplog.text
     caplog.clear()
@@ -78,8 +108,7 @@ async def test_object_growth_logging(
     await hass.async_block_till_done()
     assert "Growth" in caplog.text
 
-    await hass.services.async_call(DOMAIN, SERVICE_STOP_LOG_OBJECTS, {})
-    await hass.async_block_till_done()
+    await hass.services.async_call(DOMAIN, SERVICE_STOP_LOG_OBJECTS, {}, blocking=True)
     caplog.clear()
 
     async_fire_time_changed(hass, dt_util.utcnow() + timedelta(seconds=21))
@@ -120,9 +149,8 @@ async def test_dump_log_object(
     assert hass.services.has_service(DOMAIN, SERVICE_DUMP_LOG_OBJECTS)
 
     await hass.services.async_call(
-        DOMAIN, SERVICE_DUMP_LOG_OBJECTS, {CONF_TYPE: "DumpLogDummy"}
+        DOMAIN, SERVICE_DUMP_LOG_OBJECTS, {CONF_TYPE: "DumpLogDummy"}, blocking=True
     )
-    await hass.async_block_till_done()
 
     assert "<DumpLogDummy success>" in caplog.text
     assert "Failed to serialize" in caplog.text
@@ -144,8 +172,7 @@ async def test_log_thread_frames(
 
     assert hass.services.has_service(DOMAIN, SERVICE_LOG_THREAD_FRAMES)
 
-    await hass.services.async_call(DOMAIN, SERVICE_LOG_THREAD_FRAMES, {})
-    await hass.async_block_till_done()
+    await hass.services.async_call(DOMAIN, SERVICE_LOG_THREAD_FRAMES, {}, blocking=True)
 
     assert "SyncWorker_0" in caplog.text
     caplog.clear()
@@ -167,8 +194,9 @@ async def test_log_scheduled(
 
     assert hass.services.has_service(DOMAIN, SERVICE_LOG_EVENT_LOOP_SCHEDULED)
 
-    await hass.services.async_call(DOMAIN, SERVICE_LOG_EVENT_LOOP_SCHEDULED, {})
-    await hass.async_block_till_done()
+    await hass.services.async_call(
+        DOMAIN, SERVICE_LOG_EVENT_LOOP_SCHEDULED, {}, blocking=True
+    )
 
     assert "Scheduled" in caplog.text
     caplog.clear()

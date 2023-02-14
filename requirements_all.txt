@@ -563,7 +563,7 @@ datadog==0.15.0
 datapoint==0.9.8
 
 # homeassistant.components.bluetooth
-dbus-fast==1.84.0
+dbus-fast==1.84.1
 
 # homeassistant.components.debugpy
 debugpy==1.6.6
@@ -586,7 +586,7 @@ deluge-client==1.7.1
 demetriek==0.4.0
 
 # homeassistant.components.denonavr
-denonavr==0.10.12
+denonavr==0.11.1
 
 # homeassistant.components.devolo_home_control
 devolo-home-control-api==0.18.2
@@ -1470,7 +1470,7 @@ pyRFXtrx==0.30.0
 pySwitchmate==0.5.1
 
 # homeassistant.components.tibber
-pyTibber==0.26.12
+pyTibber==0.26.13
 
 # homeassistant.components.dlink
 pyW215==0.7.0
@@ -1837,7 +1837,7 @@ pyoctoprintapi==0.1.9
 pyombi==0.1.10
 
 # homeassistant.components.openuv
-pyopenuv==2023.01.0
+pyopenuv==2023.02.0
 
 # homeassistant.components.opnsense
 pyopnsense==0.2.0
@@ -2694,7 +2694,7 @@ zamg==0.2.2
 zengge==0.2
 
 # homeassistant.components.zeroconf
-zeroconf==0.47.1
+zeroconf==0.47.3
 
 # homeassistant.components.zeversolar
 zeversolar==0.3.0
