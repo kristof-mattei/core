@@ -21,6 +21,7 @@ else:
 
 COMMENT_REQUIREMENTS = (
     "Adafruit_BBIO",
+    "arcam_fmj",
     "avea",  # depends on bluepy
     "avion",
     "beacontools",
