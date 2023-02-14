@@ -888,7 +888,6 @@ jobs:
             --cov="homeassistant" \
             --cov-report=xml \
             -o console_output_style=count \
-            -p no:sugar \
             tests
       - name: Run pytest (partially)
         if: needs.info.outputs.test_full_suite == 'false'
@@ -913,7 +912,6 @@ jobs:
             -o console_output_style=count \
             --durations=0 \
             --durations-min=1 \
-            -p no:sugar \
             tests/components/${{ matrix.group }}
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v3.1.2
@@ -1012,7 +1010,6 @@ jobs:
             --cov-report=term-missing \
             -o console_output_style=count \
             --durations=10 \
-            -p no:sugar \
             --dburl=mysql://root:password@127.0.0.1/homeassistant-test \
             tests/components/history \
             tests/components/logbook \
@@ -1119,7 +1116,6 @@ jobs:
             -o console_output_style=count \
             --durations=0 \
             --durations-min=10 \
-            -p no:sugar \
             --dburl=postgresql://postgres:password@127.0.0.1/homeassistant-test \
             tests/components/history \
             tests/components/logbook \
